@@ -1,0 +1,7 @@
+path: /path/to/dataset
+train: images/train
+val: images/train  # or a separate val set
+names:
+  0: CrashBarrier
+  1: DamagedCrashBarrier
+
