@@ -1,6 +1,6 @@
-path: /path/to/dataset
+path: dataset/
 train: images/train
-val: images/train  # or a separate val set
+val: images/val
 names:
   0: CrashBarrier
   1: DamagedCrashBarrier

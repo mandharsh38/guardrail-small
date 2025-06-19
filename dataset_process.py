@@ -2,14 +2,12 @@ import os
 import json
 from PIL import Image
 
-# Only keep and remap these labels
 LABEL_REMAP = {
     "DamagedCrashBarrier": "DamagedCrashBarrier",
     "VegetationCrashBarrier": "DamagedCrashBarrier",
     "CrashBarrier": "CrashBarrier"
 }
 
-# Final class IDs after remap
 FINAL_LABELS = {
     "CrashBarrier": 0,
     "DamagedCrashBarrier": 1
@@ -27,7 +25,7 @@ def convert_filtered_labelme_to_yolov8_seg(source_folder, output_label_folder):
         image_path = os.path.join(source_folder, image_filename)
 
         if not os.path.exists(image_path):
-            print(f"⚠️ Image not found for: {file}")
+            print(f"Image not found for: {file}")
             continue
 
         with Image.open(image_path) as img:
@@ -48,9 +46,9 @@ def convert_filtered_labelme_to_yolov8_seg(source_folder, output_label_folder):
 
             points = shape.get("points", [])
             if len(points) < 3:
-                continue  # Skip too-small polygons
+                continue 
 
-            # Flatten and normalize polygon points
+
             flat_points = []
             for x, y in points:
                 flat_points.append(str(round(x / img_w, 6)))
@@ -58,14 +56,14 @@ def convert_filtered_labelme_to_yolov8_seg(source_folder, output_label_folder):
 
             yolo_lines.append(f"{class_id} " + " ".join(flat_points))
 
-        # Save only if any valid labels remain
+
         if yolo_lines:
             out_txt = os.path.join(output_label_folder, os.path.splitext(image_filename)[0] + ".txt")
             with open(out_txt, "w") as out_f:
                 out_f.write("\n".join(yolo_lines))
-            print(f"✅ Converted: {file}")
+            print(f"Converted: {file}")
         else:
-            print(f"🗑️ Skipped: {file} (no valid labels)")
+            print(f"Skipped: {file} (no valid labels)")
 
 # === USAGE ===
 SOURCE_FOLDER = "frames/"
