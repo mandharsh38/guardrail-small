@@ -6,7 +6,7 @@ from pathlib import Path
 base_path = Path("dataset")  # Folder containing images/train and labels/train
 image_dir = base_path / "images" / "train"
 label_dir = base_path / "labels" / "train"
-val_ratio = 0.2
+val_ratio = 0.1
 random_state = 42
 
 
